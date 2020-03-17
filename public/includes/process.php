@@ -90,7 +90,7 @@ if (isset($_POST["manageCategory"])) {
 		        </td>
 		        <td>
 		        	<a href="#" did = "<?php echo $row['cid']; ?>" class="btn btn-danger btn-sm del_cat">Delete</a>
-		        	<a href="#" eid = "<?php echo $row['cid']; ?>" class="btn btn-info btn-sm edt_cat">Edit</a>
+		        	<a href="#" eid = "<?php echo $row['cid']; ?>" class="btn btn-info btn-sm edt_cat" data-toggle="modal" data-target="#category">Edit</a>
 		        </td>
 		      </tr>
 
@@ -107,11 +107,154 @@ if (isset($_POST["manageCategory"])) {
 
 //Delete Category
   if (isset($_POST["deleteCategory"])) {
-  	 $obj = new Manage();
-  	 $result = $obj->deleteRecord("categories","cid",$_POST["id"]);
+  	 $cat = new Manage();
+  	 $result = $cat->deleteRecord("categories","cid",$_POST["id"]);
   	 echo $result;
   	 exit();
   }
+
+//Update Category
+  if (isset($_POST["updateCategory"])) {
+  	$update = new Manage();
+  	$result = $update->getSingleRecord("categories","cid",$_POST["id"]);
+  	echo json_encode($result);
+  	exit();
+  }
+
+
+  //Manage Brand
+  if (isset($_POST["manageBrand"])) {
+  	 $brand = new Manage();
+  	 $result = $brand-> manageRecordsWithPagination("brands",$_POST["pageno"]);
+  	 $rows = $result["rows"];
+  	 $pagination = $result["pagination"];
+  	 if (count($rows) > 0) {
+  	 	$n=(($_POST["pageno"]*3)-3);
+  	 	foreach ($rows as $row) {
+  	 		?>
+  	 		  <tr>
+                  <td><?php echo ++$n; ?></td>
+                  <td><?php echo $row["brand_name"]; ?></td>
+                  <td>
+                  	   <a href="#" class="btn btn-success btn-sm">Active</a>
+                  </td>
+                  <td>
+                       <a href="#" did="<?php echo $row['bid']; ?>" class="btn btn-danger btn-sm del-bar">Delete</a>
+                       <a href="#" eid="<?php echo $row['bid']; ?>" class="btn btn-info btn-sm edt-bar">Edit</a>
+                  </td>
+  	 		  </tr> 
+  	 	<?php	 		
+  	 	}
+  	 	         
+  	 	?>
+  	 	  <tr><td colspan="4"><?php echo $pagination; ?></td></tr>
+
+  	 	<?php
+  	 	  exit();
+  	 }
+  }
+
+
+  //Delete Brand
+  if (isset($_POST["deleteBrand"])) {
+  	 $brand = new Manage();
+  	 $result = $brand->deleteRecord("brands","bid",$_POST["id"]);
+  	 echo $result;
+  	 exit();
+  }
+
+
+
+
+  //Manage product
+  if (isset($_POST["manageProduct"])) {
+     $product = new Manage();
+     $result = $product->manageRecordsWithPagination("products",$_POST["pageno"]);
+     $rows = $result["rows"];
+     $pagination = $result["pagination"];
+     if (count($result) >0 ) {
+         $n = (($_POST["pageno"]*3)-3);
+        foreach ($rows as $row) {
+          ?>
+            <tr>
+              <td><?php echo ++$n; ?></td>
+              <td><?php echo $row["product_name"]; ?></td>
+              <td><?php echo $row["category_name"]; ?></td>
+              <td><?php echo $row["brand_name"]; ?></td>
+              <td><?php echo $row["product_price"]; ?></td>
+              <td><?php echo $row["product_stock"]; ?></td>
+              <td><?php echo $row["added_date"]; ?></td>
+              <td><a href="#" class="btn btn-success btn-sm">Active</a>
+              </td>
+              <td>
+                <a href="#" did="<?php echo $row['pid']; ?>" class="btn btn-danger btn-sm del_prd">Delete</a>
+                <a href="#" eid="<?php echo $row['pid']; ?>" class="btn btn-info btn-sm edt_prd">Edit</a>
+              </td>
+            </tr> 
+
+          <?php 
+        }
+        ?>
+          <tr><td colspan="9"><?php echo $pagination; ?></td></tr>
+        <?php
+        exit();
+     }
+  }
+
+
+
+
+//------------------------Order Pprocessing--------------------
+
+  if(isset($_POST["getNewOrderItem"])) {
+     $obj = new DBOperation();
+     $rows = $obj->getAllRecord("products");
+     ?>
+     <tr>
+        <td class="number">01</td>
+        <td>
+          <select name="pid[]" class="form-control form-control-sm pid" required>
+              <option value="">Select Product</option>
+              <?php 
+                    foreach ($rows as $row) {
+                      ?>
+                          <option value="<?php echo $row['pid']; ?>"><?php echo $row['product_name']; ?></option>
+                      <?php
+                    }
+               ?>
+             
+          </select>
+        </td>
+        <td>
+          <input name="tqty[]" type="text" class="form-control from-control-sm tqty" readonly>
+        </td>
+        <td>
+          <input name="qty[]" type="text" class="form-control from-control-sm qty" required>
+        </td>
+        <td>
+          <input name="price[]" type="text" class="form-control from-control-sm price" readonly>
+        </td>        
+        
+          <input name="pro_name[]" type="hidden" class="form-control from-control-sm pro_name">
+                
+        <td>
+          TK. <span class="amt">0</span>
+        </td>
+      </tr> 
+
+     <?php
+     exit();
+  }
+
+
+  //Get Single Record
+  if (isset($_POST["getPriceQuantity"])) {
+    $obj = new Manage();
+    $result = $obj->getSingleRecord("products","pid",$_POST["id"]);
+    echo json_encode($result);
+    exit();
+  }
+
 
 
 

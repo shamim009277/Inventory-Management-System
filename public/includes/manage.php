@@ -19,6 +19,12 @@ class Manage
 		if ($table=="categories") {
 			 $sql = "SELECT p.category_name as category, c.category_name as parent, p.status, p.cid 
 			 FROM categories p LEFT JOIN categories c ON p.parent_cat=c.cid ".$a["limit"];
+		}else if($table=="products"){
+             $sql = "SELECT P.product_name, c.category_name, b.brand_name, p.product_price, p.product_stock, p.added_date,
+                    p.p_status FROM products p, categories c, brands b WHERE p.cid = c.cid AND p.bid = b.bid ".$a["limit"];
+		}
+		else{
+			$sql = "SELECT * FROM ".$table." ".$a["limit"];
 		}
 		$result = $this->con->query($sql) or die($this->con->error);
 		$rows = array();
@@ -111,12 +117,24 @@ class Manage
    	  }
    }
 
+
+   public function getSingleRecord($table,$pk,$id){
+        $pre_stmt = $this->con->prepare("SELECT * FROM ".$table." WHERE ".$pk." = ? LIMIT 1");
+        $pre_stmt->bind_param("i",$id);
+        $pre_stmt->execute() or die($this->con->error);
+        $result = $pre_stmt->get_result();
+        if ($result->num_rows == 1) {
+        	  $row = $result->fetch_assoc();
+        }
+        return $row;
+   }
+
 }
 
 //$obj = new Manage();
 //echo "<pre>";
-//print_r($obj->manageRecordsWithPagination("categories",1));
-// echo $obj->deleteRecord("brands",2);
-
+//print_r($obj->manageRecordsWithPagination("products",1));
+//echo $obj->deleteRecord("brands",2);
+//print_r($obj->getSingleRecord("brands","bid",4));
 
  ?>

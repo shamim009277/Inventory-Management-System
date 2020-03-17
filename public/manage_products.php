@@ -25,21 +25,29 @@ if(!isset($_SESSION["userid"])) {
     <div class="container">
 		<div class="row mt-5">
            <div class="col-md-12 mx-auto">
-           	<h4>Category List</h4>
+           	<h4>Products List</h4>
            <table class="table table-hover table-bordered">
 			    <thead>
 			      <tr>
 			        <th>Sl</th>
+			        <th>Product Name</th>
 			        <th>Category</th>
-			        <th>parent</th>
+			        <th>Brand</th>
+			        <th>Price</th>
+			        <th>Stock</th>
+			        <th>Date</th>
 			        <th>Status</th>
 			        <th>Action</th>
 			      </tr>
 			    </thead>
-			    <tbody id="get_category">
+			    <tbody id="get_product">
 			      <!-- <tr>
 			        <td>01</td>
-			        <td>Electronics</td>
+			        <td>Nokia-837</td>
+			        <td>Electronis</td>
+			        <td>Nokia</td>
+			        <td>2700</td>
+			        <td>2</td>
 			        <td>Root</td>
 			        <td><a href="#" class="btn btn-success btn-sm">Active</a>
 			        </td>
@@ -47,7 +55,7 @@ if(!isset($_SESSION["userid"])) {
 			        	<a href="#" class="btn btn-danger btn-sm">Delete</a>
 			        	<a href="#" class="btn btn-info btn-sm">Edit</a>
 			        </td>
-			      </tr> -->
+			      </tr>  -->
 			      
 			      
 			    </tbody>
@@ -57,7 +65,7 @@ if(!isset($_SESSION["userid"])) {
 	</div>
 	
  
-       <?php include_once("./template/update_category.php"); ?>
+       
 
 </body>
 </html>

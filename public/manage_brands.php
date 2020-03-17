@@ -25,18 +25,17 @@ if(!isset($_SESSION["userid"])) {
     <div class="container">
 		<div class="row mt-5">
            <div class="col-md-12 mx-auto">
-           	<h4>Category List</h4>
+           	<h4>Brand List</h4>
            <table class="table table-hover table-bordered">
 			    <thead>
 			      <tr>
 			        <th>Sl</th>
-			        <th>Category</th>
-			        <th>parent</th>
+			        <th>Brand</th>
 			        <th>Status</th>
 			        <th>Action</th>
 			      </tr>
 			    </thead>
-			    <tbody id="get_category">
+			    <tbody id="get_brand">
 			      <!-- <tr>
 			        <td>01</td>
 			        <td>Electronics</td>
@@ -57,7 +56,7 @@ if(!isset($_SESSION["userid"])) {
 	</div>
 	
  
-       <?php include_once("./template/update_category.php"); ?>
+       
 
 </body>
 </html>

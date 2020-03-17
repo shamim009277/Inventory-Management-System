@@ -208,7 +208,11 @@ $(document).ready(function(){
              method: "POST",
              data : $("#brand_form").serialize(),
              success : function (data){
-                 
+                    $("#brand_name").removeClass("border-danger");
+                    $("#br_error").html("<span class='text-danger'>Brand Addedd Successfully !!</span>");
+                    $("#brand_name").val("");
+
+/*                 
                  if (data == "BRAND_ADDED") {
                      $("#brand_name").val("");
                      fetch_brand();
@@ -217,6 +221,10 @@ $(document).ready(function(){
                  }else{
                     alert(data);
                  }
+
+*/
+
+
              }
         })
      }

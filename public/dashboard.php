@@ -53,7 +53,7 @@ if(!isset($_SESSION["userid"])) {
 					      <div class="card-body">
 					        <h5 class="card-title">New Orders</h5>
 					        <p class="card-text">Here you can make invoice and create new orders.</p>
-					        <a href="#" class="btn btn-primary">New Orders</a>
+					        <a href="order_new.php" class="btn btn-primary">New Orders</a>
 					      </div>
 				      </div>
                    </div>
@@ -80,7 +80,7 @@ if(!isset($_SESSION["userid"])) {
 		        <h5 class="card-title">New Brands</h5>
 		        <p class="card-text">Here you can manage your brands and you add new brands.</p>
 		        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#brand">Add</a>
-		        <a href="#" class="btn btn-primary">Manage</a>
+		        <a href="manage_brands.php" class="btn btn-primary">Manage</a>
 		      </div>
 		     </div>
            </div>
@@ -90,7 +90,7 @@ if(!isset($_SESSION["userid"])) {
 		        <h5 class="card-title">Products</h5>
 		        <p class="card-text">Here you can manage your products and you add new products.</p>
 		        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#product">Add</a>
-		        <a href="#" class="btn btn-primary">Manage</a>
+		        <a href="manage_products.php" class="btn btn-primary">Manage</a>
 		      </div>
 		     </div>
            </div>
