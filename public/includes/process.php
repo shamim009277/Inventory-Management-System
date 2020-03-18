@@ -233,10 +233,9 @@ if (isset($_POST["manageCategory"])) {
         </td>
         <td>
           <input name="price[]" type="text" class="form-control from-control-sm price" readonly>
-        </td>        
-        
-          <input name="pro_name[]" type="hidden" class="form-control from-control-sm pro_name">
+        </td>
                 
+          <input name="pro_name[]" type="hidden" class="form-control from-control-sm pro_name">
         <td>
           TK. <span class="amt">0</span>
         </td>
@@ -253,6 +252,37 @@ if (isset($_POST["manageCategory"])) {
     $result = $obj->getSingleRecord("products","pid",$_POST["id"]);
     echo json_encode($result);
     exit();
+  }
+
+  //Please New order
+  if (isset($_POST["order_date"]) AND isset($_POST["cust_name"])) {
+    
+      $order_date = $_POST["order_date"];
+      $cust_name  = $_POST["cust_name"];
+
+      //Array data for place order
+      $arr_tqty = $_POST["tqty"];
+      $arr_qty = $_POST["qty"];
+      $arr_price = $_POST["price"];
+      $arr_pro_name = $_POST["pro_name"];
+      //$_POST["tqty"];
+
+
+      $sub_total  = $_POST["sub_total"];
+      $gst        = $_POST["gst"];
+      $discount   = $_POST["discount"];
+      $net_total  = $_POST["net_total"];
+      $paid       = $_POST["paid"];
+      $due        = $_POST["due"];
+      $payment_type = $_POST["payment_type"];
+
+
+      $order = new Manage();
+      echo $result = $order->storeCustomerOrder($order_date,$cust_name,$arr_tqty,$arr_qty,$arr_price,$arr_pro_name,$sub_total,$gst,$discount,$net_total,$paid,$due,$payment_type);
+      exit();
+      
+
+
   }
 
 

@@ -39,7 +39,7 @@ $(document).ready(function(){
                 success : function(data){
                     tr.find(".tqty").val(data["product_stock"]);
                     tr.find(".qty").val(1);
-                    tr.find(".pro_name").val(data["pro_name"]);
+                    tr.find(".pro_name").val(data["product_name"]);
                     tr.find(".price").val(data["product_price"]);
                     tr.find(".amt").html(tr.find(".qty").val()*tr.find(".price").val());
                     calculate(0,0);
@@ -110,6 +110,22 @@ $(document).ready(function(){
    	 var discount = $("#discount").val();
    	 calculate(discount,paid);
    })
+
+   $("#order-button").click(function(){
+
+   	var invoice = $("#order_form").serialize();
+
+        $.ajax({
+        	url : DOMAIN+"/includes/process.php",
+        	method : "POST",
+        	data : $("#order_form").serialize(),
+        	success : function(data){
+        		$("#order_form").trigger("reset");
+        		alert(data);
+
+        	}
+        })
+   });
 
 
 

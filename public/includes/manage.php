@@ -129,6 +129,36 @@ class Manage
         return $row;
    }
 
+
+   public function storeCustomerOrder($order_date,$cust_name,$arr_tqty,$arr_qty,$arr_price,$arr_pro_name,$sub_total,$gst,$discount,$net_total,$paid,$due,$payment_type){
+
+   	   $pre_stmt = $this->con->prepare("INSERT INTO `orders`(`customer_name`, `order_date`, `sub_total`, `gst`, `discount`, `net_total`, `paid`, `due`, `payment_type`) 
+   	   	VALUES (?,?,?,?,?,?,?,?,?)");
+   	   $pre_stmt->bind_param("ssdddddds",$cust_name,$order_date,$sub_total,$gst,$discount,$net_total,$paid,$due,$payment_type);
+   	   $pre_stmt->execute() or die($this->con->error);
+   	   $order_on = $pre_stmt->insert_id;
+   	    if ($order_on != null) {
+   	    	 for ($i=0; $i < count($arr_qty) ; $i++) { 
+
+   	    	 	//Here we are finding remaining quanty after calculation
+   	    	 	  $rem_qty = $arr_tqty[$i] - $arr_qty[$i];
+   	    	 	  if ($rem_qty < 0) {
+   	    	 	  	  return "ORDER_FAILED";
+   	    	 	  }else{
+   	    	 	    $sql = "UPDATE products SET product_stock = '$rem_qty' WHERE product_name = '".$arr_pro_name[$i]."'";
+   	    	 	  	$this->con->query($sql);
+   	    	 	  }
+  
+   	    	 	  $insert_product = $this->con->prepare("INSERT INTO `order_details`(`orderid`, `product_name`, `qty`, `price`) 
+   	    	 	  	VALUES (?,?,?,?)");
+   	    	 	  $insert_product->bind_param("isdd",$order_on,$arr_pro_name[$i],$arr_qty[$i],$arr_price[$i]);
+   	    	 	  $insert_product->execute() or die($this->con->error);
+   	    	 }
+
+   	    	 return "ORDER_COMPLETE";
+   	    }
+   }
+
 }
 
 //$obj = new Manage();

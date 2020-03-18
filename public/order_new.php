@@ -30,17 +30,17 @@ if(!isset($_SESSION["userid"])) {
 				     <h4>New Orders</h4>
 				  </div>
 				  <div class="card-body">
-				     <form onsubmit="return false">
+				     <form id="order_form" onsubmit="return false">
                          <div class="form-group row">
                              <label class="col-sm-3 col-form-label" align="right">Order Date</label>
                              <div class="col-sm-6">
-                             	<input type="text" readonly class="form-control form-control-sm" value="<?php echo date("Y-d-m"); ?>">
+                             	<input type="text" name="order_date" id="order_date" readonly class="form-control form-control-sm" value="<?php echo date("Y-d-m"); ?>">
                              </div>
                          </div>
                          <div class="form-group row">
                              <label class="col-sm-3 col-form-label" align="right">Customer Name</label>
                              <div class="col-sm-6">
-                             	<input type="text" class="form-control form-control-sm" Placeholder="Please Enter Customer Name" required>
+                             	<input type="text" name="cust_name" id="cust_name" class="form-control form-control-sm" Placeholder="Please Enter Customer Name" required>
                              </div>
                          </div>
                          <div class="card mb-5" style="box-shadow:0 0 10px 0 lightgray;">
@@ -90,13 +90,13 @@ if(!isset($_SESSION["userid"])) {
                          <div class="form-group row">
                              <label for="sub_total" class="col-sm-3 col-form-label" align="right">Sub Total</label>
                              <div class="col-sm-6">
-                             	<input type="text" name="sub_total" id="sub_total" class="form-control form-control-sm" required>
+                             	<input type="text" name="sub_total" id="sub_total" class="form-control form-control-sm" readonly>
                              </div>
                          </div>
                          <div class="form-group row">
                              <label for="gst" class="col-sm-3 col-form-label" align="right">GST (18%)</label>
                              <div class="col-sm-6">
-                             	<input type="text" name="gst" id="gst" class="form-control form-control-sm" required>
+                             	<input type="text" name="gst" id="gst" class="form-control form-control-sm" readonly>
                              </div>
                          </div>
                          <div class="form-group row">
@@ -108,7 +108,7 @@ if(!isset($_SESSION["userid"])) {
                          <div class="form-group row">
                              <label for="net_total" class="col-sm-3 col-form-label" align="right">Net Total</label>
                              <div class="col-sm-6">
-                             	<input type="text" name="net_total" id="net_total" class="form-control form-control-sm" required>
+                             	<input type="text" name="net_total" id="net_total" class="form-control form-control-sm" readonly>
                              </div>
                          </div>
                          <div class="form-group row">
@@ -120,7 +120,7 @@ if(!isset($_SESSION["userid"])) {
                          <div class="form-group row">
                              <label for="due" class="col-sm-3 col-form-label" align="right">Due</label>
                              <div class="col-sm-6">
-                             	<input type="text" name="due" id="due" class="form-control form-control-sm" required>
+                             	<input type="text" name="due" id="due" class="form-control form-control-sm" readonly>
                              </div>
                          </div>
                          <div class="form-group row">
@@ -137,7 +137,7 @@ if(!isset($_SESSION["userid"])) {
                              </div>
                          </div>
                          <center>
-                               <input type="submit" id="order-form" style="width:120px;" class="btn btn-info" value="Order">
+                               <input type="submit" id="order-button" style="width:120px;" class="btn btn-info" value="Order">
                                <input type="submit" id="print_invoice" style="width:120px;" class="btn btn-success d-none" value="Print Invoice">
                          </center>
 
@@ -148,9 +148,6 @@ if(!isset($_SESSION["userid"])) {
        </div>
     </div>
 	
-    
- 
-
 
 </body>
 </html>
